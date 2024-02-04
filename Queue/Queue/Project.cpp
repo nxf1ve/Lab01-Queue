@@ -77,6 +77,37 @@ public:
 		return;
 	}
 
+	void swap(int &firstElement, int &secondElement) {
+		int temp = firstElement;
+		firstElement = secondElement;
+		secondElement = temp;
+	}
+	void shakerSort() {
+		bool swapped = 1;
+		int start = 0;
+		int end = nItems - 1;
+		while (swapped) {
+			swapped = 0;
+			for (int i = start; i < end; i++) {
+				if (queArray[i] > queArray[i + 1]) {
+					swap(queArray[i], queArray[i + 1]);
+					swapped = 1;
+				}
+			}
+			if (!swapped)
+				break;
+			--end;
+			swapped = 0;
+			for (int i = end - 1; i >= start; --i) {
+				if (queArray[i] > queArray[i + 1]) {
+					swap(queArray[i], queArray[i + 1]);
+					swapped = 1;
+				}
+			}
+			++start;
+		}
+	}
+
 
 };
 
@@ -87,7 +118,7 @@ void main() {
 	cout << "Введите количество элементов очереди: ";
 	cin >> number;
 	queue TheQueue(number);
-	cout << "1 - Вставить элемент\n2 - Удалить элемент из начала\n3 - Вывести очередь на экран\n-1 - Выход\n";
+	cout << "1 - Вставить элемент\n2 - Удалить элемент из начала\n3 - Вывести очередь на экран\n4 - Сортировка перемешиванием\n-1 - Выход\n";
 	while (choice != -1) {
 		cin >> choice;
 		switch (choice)
@@ -102,6 +133,9 @@ void main() {
 			break;
 		case 3:
 			TheQueue.printQueue();
+			break;
+		case 4:
+			TheQueue.shakerSort();
 			break;
 		case -1:
 			break;
